@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<activities>
+        <consumer identify-transaction="true">
+            <!-- Configure the entry point. -->
+            <instrumentation>
+                <class-name>Consumer.IdentifyTransaction</class-name>
+                <method-name>Test</method-name>
+                <match-type>MATCHES_CLASS</match-type>
+            </instrumentation>
+            <correlation>
+                <!-- Configure the payload method. -->
+                <instrumentation>
+                    <class-name>Consumer.IdentifyTransaction</class-name>
+                    <method-name>TestCorrelation</method-name>
+                    <match-type>MATCHES_CLASS</match-type>
+                </instrumentation>
+                <payload-pointer>
+                    <data-gatherer-type>POSITION</data-gatherer-type>
+                    <position>0</position>
+                    <getter-chain>this</getter-chain>
+                    <transformer-type>GETTER_METHODS</transformer-type>
+                </payload-pointer>
+                <payload-operation>
+                    <access-type>method</access-type>
+                    <access-method>getCorrelationKey</access-method>
+                </payload-operation>
+            </correlation>
+        </consumer>
+</activities>

@@ -1,0 +1,35 @@
+{
+  "controller": {
+    "host": "twin202412261749031.saas.appdynamics.com",
+    "port": 443,
+    "ssl": true,
+    "account": "twin202412261749031",
+    "password": "xe47cib4sf7m"
+  },
+  "application": {
+    "name": "DotNetApplication",
+    "tier": "linuxagent",
+    "node": "Instance"
+  },
+  "instrumentors": {
+    "customCorrelationConfig": "custom-correlation.xml",
+
+  "enable": [
+      "ThreadStartCLR2Instrumentor",
+      "ThreadCorrelationThreadPoolCLR2Instrumentor"
+      ],
+
+    "disable": [
+      "ASPdotNETInstrumentor",
+      "WebApiInstrumentor"
+     ]
+  },
+  "analytics" : {
+    "host": "twin202412261749031.saas.appdynamics.com",
+    "port": 9090
+  },
+  "feature": [
+    "FULL_AGENT"
+  ]
+}
+
