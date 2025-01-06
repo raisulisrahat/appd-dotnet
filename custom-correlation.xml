@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <activities>
-        <consumer identify-transaction="true">
-            <!-- Configure the entry point. -->
+    <producer>
+        <!-- Configure the exit point. -->
+        <instrumentation>
+            <class-name>Producer.IdentifyTransaction</class-name>
+            <method-name>Test</method-name>
+            <match-type>MATCHES_CLASS</match-type>
+            <param-types>Producer.IdentifyTransaction</param-types>
+        </instrumentation>
+        <identifiers>
+            <identifier name="IdentifyTransactionTest">              
+                <data-gatherer-type>INVOKED</data-gatherer-type>
+                <getter-chain>this</getter-chain>
+                <user-defined-name>IdentifyTransactionTest</user-defined-name>
+                <transformer-type>USER_DEFINED_NAME</transformer-type>
+            </identifier>
+        </identifiers>
+        <correlation>
+            <!-- Configure the payload method. -->
             <instrumentation>
-                <class-name>Consumer.IdentifyTransaction</class-name>
-                <method-name>Test</method-name>
+                <class-name>Producer.IdentifyTransaction</class-name>
+                <method-name>TestCorrelation</method-name>
                 <match-type>MATCHES_CLASS</match-type>
-            </instrumentation>
-            <correlation>
-                <!-- Configure the payload method. -->
-                <instrumentation>
-                    <class-name>Consumer.IdentifyTransaction</class-name>
-                    <method-name>TestCorrelation</method-name>
-                    <match-type>MATCHES_CLASS</match-type>
-                </instrumentation>
-                <payload-pointer>
-                    <data-gatherer-type>POSITION</data-gatherer-type>
-                    <position>0</position>
-                    <getter-chain>this</getter-chain>
-                    <transformer-type>GETTER_METHODS</transformer-type>
-                </payload-pointer>
-                <payload-operation>
-                    <access-type>method</access-type>
-                    <access-method>getCorrelationKey</access-method>
-                </payload-operation>
-            </correlation>
-        </consumer>
+                <param-types>Producer.IdentifyTransaction</param-types>
+            </instrumentation> 
+            <payload-pointer>
+                <data-gatherer-type>POSITION</data-gatherer-type>
+                <position>0</position>
+                <getter-chain>this</getter-chain>
+                <transformer-type>GETTER_METHODS</transformer-type>
+            </payload-pointer>
+            <payload-operation>
+                <access-type>method</access-type>
+                <access-method>setCorrelationKey</access-method>
+                <param-types>String</param-types>
+            </payload-operation>
+        </correlation>
+    </producer>
+
+ 
 </activities>

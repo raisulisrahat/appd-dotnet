@@ -1,0 +1,69 @@
+{
+    "controller": {
+        "host": "<<host_name>>",
+        "port": 8080,
+        "ssl": false,
+        "enable_tls12": false,
+        "account": "customer1",
+        "password": "password",
+        "proxy" : {
+            "host": "test-host",
+            "port": 8080,
+            "authentication":{
+               "username": "test-username",
+               "password": "test-password",
+               "domain": "test.com"
+            }
+        }
+    },
+ 
+    "application": {
+        "name": "Dotnet",
+        "tier": "tier1",
+        "node": "node2"
+    },
+	
+	"instrumentors": {
+    	"customCorrelationConfig": "custom-correlation.xml",
+	
+		"enable": [
+    	  "ThreadStartCLR2Instrumentor",
+     	 "ThreadCorrelationThreadPoolCLR2Instrumentor"
+   		 ],
+	
+    	"disable": [
+    	  "ASPdotNETInstrumentor",
+    	  "WebApiInstrumentor"
+  		 ]
+  },
+  "assemblyWhitelist": [
+        "^mscorlib$",
+        "^EQUALS$",
+ 
+        "^App_Web_",
+        "^STARTS_WITH",
+ 
+        "foo$",
+        "ENDS_WITH$",
+       
+        "bar",
+        "CONTAINS",
+ 
+        "Or any other regex"
+    ],
+	"disableInjectFields": false
+
+    "profiler": {
+         "attachBlockList": [ "ProcessNameToBeBlockListed", "ProcessNameToBeBlockListed", ... ],
+         "attachAllowList": [ "ProcessNameToBeAllowListed", "ProcessNameToBeAllowListed", ... ]
+    },
+	"analytics": {
+		"host": "localhost",
+		"port": 9090
+	}
+}
+
+Note:
+attachBlockList excludes a process if it is on the profiler list.
+attachAllowList excludes all processes except those listed in the list. If it is empty, it will include all processes.
+Both lists relate to whether the profiler is detached from the process when the process launches, assuming the environment variables for the AppDynamics profiler are set correctly.
